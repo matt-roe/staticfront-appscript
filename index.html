@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .currencylist__item-code{
+            padding-right:  50px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="currencylist js-currencylist" id="currency-ul">
+
+        <li class="currencylist__item currencylist__item--header">
+            <span class="currencylist__item-code">ID</span>
+            <span class="currencylist__item-name">Name</span>
+            <span class="currencylist__item-description">Description</span>
+            <span class="currencylist__item-actions">&nbsp;</span>
+        </li>
+
+    </ul>
+    <script>
+        fetch('https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLi-rSeSWtJW6aOmKKa3agcEsidpiBlYiM0_R6gqaKHExqv0qUrLU3Zc3buELvbWIp8yGvnTLge5As6cLTPetp9hgp5t_iaozqr_Sr8a17Q125QtEFSp_pTO_3_1BO3xQJHukV-iCXcd0oN9azo69JbMHjd9fYo0O88B5MRZ4c7x1fQbzOXFHKIcib2a2OZYbpOPHkoAkLOJKqoh8M-143jcF2kYDP6tS8af0yAYzn3qAnKESq2xBi7JZmzvS4oOt9CWI6P4C8vYLAvMYW3pe8Sy9jZFKg&lib=M9MiC4kJ1BqeH2Rt1IQi8eMOnzbz-2L4C', {mode: 'no-cors'})
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`);
+                }
+                console.log(JSON.stringify(response.json()));
+                return response.json();
+            })
+            .then(json => {
+                console.log(JSON.stringify(json))
+                for (var key in json) {
+                    if (json.hasOwnProperty(key)) {
+                        var val = json[key];
+                        var dataspan='<span class="currencylist__item-code">'+key+'</span><span class="currencylist__item-name">'+val+'</span>'
+                        const node= document.createElement("li")
+                        document.getElementById("currency-ul").appendChild(node).innerHTML=dataspan;
+                    }
+                }
+            }
+        )
+            .catch(err => console.error(`Fetch problem: ${err.message}`));
+
+    </script>
+</body>
+
+</html>
